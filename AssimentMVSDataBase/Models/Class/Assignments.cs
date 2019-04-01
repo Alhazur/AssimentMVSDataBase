@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AssimentMVSDataBase.Models
+namespace AssimentMVSDataBase.Models.Class
 {
-    public class Course
+    public class Assignment
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
         public List<Student> Student { get; set; }
-
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AssimentMVSDataBase.Models.Interface
 {
-    interface ITeacher
+    public interface ITeacherService
     {
         Teacher CreateTeacher(string name, int price, string details);
 

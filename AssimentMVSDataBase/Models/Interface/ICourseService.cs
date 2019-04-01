@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace AssimentMVSDataBase.Models
 {
-    interface ICouseService
+    public interface ICourseService
     {
         Course CreateCake(string name, int price, string details);
 
-        List<Course> AllCakes();
+        List<Course> AllCourse();
 
-        Course FindCake(int id);
+        Course FindCourse(int id);
 
-        bool UpdateCake(Course Course);
+        bool UpdateCourse(Course Course);
 
-        bool DeleteCake(int id);
+        bool DeleteCourse(int id);
     }
 }
