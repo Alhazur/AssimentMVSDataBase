@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AssimentMVSDataBase.Database;
+using AssimentMVSDataBase.Models;
+using AssimentMVSDataBase.Models.Interface;
+using AssimentMVSDataBase.Models.Mock;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,9 +28,13 @@ namespace AssimentMVSDataBase
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CakeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<SchoolDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IExService, ExService>();
+            //All class and interfaceses
+            services.AddScoped<ITeacherService, TeacherService>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
 
             services.AddMvc();
         }

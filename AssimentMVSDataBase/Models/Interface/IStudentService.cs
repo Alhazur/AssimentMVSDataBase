@@ -7,9 +7,9 @@ namespace AssimentMVSDataBase.Models.Interface
 {
     public interface IStudentService
     {
-        Student CreateStudent(string name, int price, string details);
+        Student CreateStudent(string name, string phone, string location);
 
-        List<Student> AllStudent();
+        List<Student> AllStudents();
 
         Student FindStudent(int id);
 

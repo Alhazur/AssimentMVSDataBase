@@ -7,7 +7,7 @@ namespace AssimentMVSDataBase.Models.Interface
 {
     public interface ITeacherService
     {
-        Teacher CreateTeacher(string name, int price, string details);
+        Teacher CreateTeacher(string name, string description);
 
         List<Teacher> AllTeacher();
 

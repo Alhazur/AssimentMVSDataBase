@@ -6,14 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AssimentMVSDataBase.Controllers
 {
-    public class HomeController : Controller
+    public class TeacherController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
         {
             return View();
         }

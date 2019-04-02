@@ -7,7 +7,7 @@ namespace AssimentMVSDataBase.Models
 {
     public interface ICourseService
     {
-        Course CreateCake(string name, int price, string details);
+        Course CreateCourse(string name, string description);
 
         List<Course> AllCourse();
 

@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AssimentMVSDataBase.Database;
 using AssimentMVSDataBase.Models.Class;
 
 namespace AssimentMVSDataBase.Models.Interface
 {
     public class AssignmentService : IAssignmentService
     {
+        readonly SchoolDbContext _schoolDbContext;
+
+        public AssignmentService(SchoolDbContext schoolDbContext)
+        {
+            _schoolDbContext = schoolDbContext;
+        }
+
         public List<Assignment> AllAssignment()
         {
             throw new NotImplementedException();

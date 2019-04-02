@@ -11,6 +11,6 @@ namespace AssimentMVSDataBase.Models.Class
 
         public string Title { get; set; }
 
-        public List<Student> Student { get; set; }
+        public string Description { get; set; }        
     }
 }

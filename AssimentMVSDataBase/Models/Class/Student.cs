@@ -17,14 +17,6 @@ namespace AssimentMVSDataBase.Models
 
         public string Location { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime EnrollmentDate { get; set; }
-        
-        public List<Teacher> Teacher { get; set; }
-
-        public List<Course> StudentCource { get; set; }
-
-        public List<Assignment> Assignments { get; set; }
+        public List<Course> Cource { get; set; }
     }
 }
