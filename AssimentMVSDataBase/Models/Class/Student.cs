@@ -11,12 +11,13 @@ namespace AssimentMVSDataBase.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Phone { get; set; }
 
         public string Location { get; set; }
 
-        public List<Course> Cource { get; set; }
+        public List<StudentsCourses> Cource { get; set; }
     }
 }

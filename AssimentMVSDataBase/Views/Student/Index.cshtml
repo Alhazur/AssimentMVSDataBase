@@ -1,24 +1,53 @@
-﻿@model List<Student>
+﻿@model IEnumerable<AssimentMVSDataBase.Models.Student>
+@*@model List<Student>*@
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
+<br />
+<h2>List of students</h2>
+<hr />
+
+@* Den går till createstudent view *@
+<a asp-controller="Student" asp-action="CreateStudent">Create</a>
 
 <table>
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Instrument</th>
+            <th>
+                Name
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Options
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            @item.Name
-            @item.Phone
-            @item.Location
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Student" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

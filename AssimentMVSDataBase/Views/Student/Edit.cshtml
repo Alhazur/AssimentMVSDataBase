@@ -1,0 +1,31 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form asp-controller="Student" asp-action="Edit" method="post">
+
+    <div class="col-12">
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd><input type="text" value="@Model.Name"></dd>
+            <dt>City</dt>
+            <dd><input type="text" value="@Model.Phone"></dd>
+            <dt>Phone</dt>
+            <dd><input type="text" value="@Model.Location "></dd>
+            <dt>                
+                <button class="btn btn-success" asp-controller="Student" asp-action="Edit">
+                    Save
+                </button>
+            </dt>
+            <dd>                
+                <button class="btn btn-secondary" asp-controller="Student" asp-action="Index">
+                    Back
+                </button>
+            </dd>
+        </dl>
+    </div>
+</form>

@@ -34,7 +34,7 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             bool wasRemoved = false;
 
-            Teacher teacher = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == id);
+            Teacher teacher = _schoolDbContext.Teacher.SingleOrDefault(g => g.Id == id);
 
             if (teacher == null)
             {
@@ -48,14 +48,14 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Teacher FindTeacher(int id)
         {
-            return _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teachers.Id);
+            return _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == id);
 
         }
 
         public bool UpdateTeacher(Teacher teacher)
         {
             bool wasUpdate = false;
-            Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teachers.Id);
+            Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teacher.Id);
             {
                 if (stud == null)
                 {
