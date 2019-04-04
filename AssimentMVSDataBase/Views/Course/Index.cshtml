@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AssimentMVSDataBase.Models.Course>
+@*@model List<Course>*@
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2>List of courses</h2>
+<hr />
+
+@* Den går till createstudent view *@
+<a class="btn btn-primary" asp-controller="Course" asp-action="CreateCourse">Create new courses</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+            <td>
+                <a class="btn btn-primary" asp-controller="Course" asp-action="Edit" asp-route-id="@item.CourseId">Edit</a>
+                <a class="btn btn-danger" asp-controller="Course" asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+            </td>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

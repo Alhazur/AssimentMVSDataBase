@@ -29,6 +29,7 @@ namespace AssimentMVSDataBase.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateStudent([Bind("Name,Phone,Location")]Student student)
         {
             if (ModelState.IsValid)
@@ -54,6 +55,7 @@ namespace AssimentMVSDataBase.Controllers
             return View(student);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Student student)
         {
 

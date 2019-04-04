@@ -1,10 +1,18 @@
 ﻿body {
-    background-image: url('http://img2.vetton.ru//upl/1000/346/vetton_ru_258911--1920x1200.jpg');
+    /*background-image: url('http://img2.vetton.ru//upl/1000/346/vetton_ru_258911--1920x1200.jpg');*/
+    background-image: url('http://img2.vetton.ru//upl/1000/346/vetton_ru_738782d4dfaf4af1b09f7a5bd40c1832-1920x1200.jpg');
     padding: 10px;
+    color: white;
 }
 table, th, td {
     border: 1px solid black;
 }
 table, th {
     border: 1px solid black;
+}
+.row {
+    padding: 7px;
+}
+.dl-horizontal{
+    color: black;
 }

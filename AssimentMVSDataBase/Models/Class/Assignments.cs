@@ -7,7 +7,7 @@ namespace AssimentMVSDataBase.Models.Class
 {
     public class Assignment
     {
-        public int Id { get; set; }
+        public int AssignmentId { get; set; }
 
         public string Title { get; set; }
 

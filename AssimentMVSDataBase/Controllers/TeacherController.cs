@@ -22,7 +22,14 @@ namespace AssimentMVSDataBase.Controllers
             return View(_teacherService.AllTeacher());
         }
 
+        [HttpGet]
+        public IActionResult CreateTeacher()
+        {
+            return View();
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateTeacher([Bind("Name,Description")] Teacher teacher)
         {
             if (ModelState.IsValid)
@@ -48,6 +55,7 @@ namespace AssimentMVSDataBase.Controllers
             return View(teacher);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Teacher teacher)
         {
 

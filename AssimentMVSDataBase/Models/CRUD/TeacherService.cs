@@ -57,7 +57,7 @@ namespace AssimentMVSDataBase.Models.Mock
             bool wasUpdate = false;
             Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teacher.Id);
             {
-                if (stud == null)
+                if (stud != null)
                 {
                     stud.Name = teacher.Name;
                     stud.Description = teacher.Description;

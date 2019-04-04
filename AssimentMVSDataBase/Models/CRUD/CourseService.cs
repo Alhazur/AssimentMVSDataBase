@@ -42,7 +42,6 @@ namespace AssimentMVSDataBase.Models.Mock
 
             _schoolDbContext.Courses.Remove(course);
             _schoolDbContext.SaveChanges();
-
             return wasRemoved;
         }
 
@@ -55,16 +54,17 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             bool wasUpdate = false;
 
-            Course original = _schoolDbContext.Courses.SingleOrDefault(courses => courses.CourseId == course.CourseId);//Najti i ydalit
-
-            if (original == null)
+            Course item = _schoolDbContext.Courses.SingleOrDefault(qq => qq.CourseId == course.CourseId);
             {
-                return wasUpdate;
+                if (item != null)
+                {
+                    item.Title = course.Title;
+                    item.Description = course.Description;
+
+                    _schoolDbContext.SaveChanges();
+                    wasUpdate = true;
+                }
             }
-
-            _schoolDbContext.Courses.Remove(original);
-            _schoolDbContext.SaveChanges();
-
             return wasUpdate;
         }
     }

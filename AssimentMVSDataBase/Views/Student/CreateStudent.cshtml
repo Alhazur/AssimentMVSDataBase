@@ -1,11 +1,37 @@
 ﻿@model Student
-<h2>Create Student</h2>
-<form asp-action="CreateStudent">
-    <div class="row form-border">
-        <input asp-for="Name" />
-        <input asp-for="Phone" />
-        <input asp-for="Location" />
-        <input type="submit" value="Create Student" class="btn btn-sm btn-success" />
 
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<br />
+<h2>Create Student</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateStudent">
+            <div class="row form-border">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Create Student" class="btn btn-sm btn-success" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
+<hr />
+

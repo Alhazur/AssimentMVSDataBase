@@ -18,27 +18,55 @@ namespace AssimentMVSDataBase.Models.Interface
 
         public List<Assignment> AllAssignment()
         {
-            throw new NotImplementedException();
+            return _schoolDbContext.Assignments.ToList();
         }
 
-        public Assignment CreateAssignment(string name, int price, string details)
+        public Assignment CreateAssignment(string title, string description)
         {
-            throw new NotImplementedException();
+            Assignment assignment = new Assignment() { Title = title, Description = description };
+            _schoolDbContext.Assignments.Add(assignment);
+            _schoolDbContext.SaveChanges();
+            return assignment;            
         }
 
         public bool DeleteAssignment(int id)
         {
-            throw new NotImplementedException();
+            bool wasRemoved = false;
+
+            Assignment assignment = _schoolDbContext.Assignments.SingleOrDefault(gg => gg.AssignmentId == id);//Najti i ydalit
+
+            if (assignment == null)
+            {
+                return wasRemoved;
+            }
+
+            _schoolDbContext.Assignments.Remove(assignment);
+            _schoolDbContext.SaveChanges();
+
+            return wasRemoved;
         }
 
         public Assignment FindAssignment(int id)
         {
-            throw new NotImplementedException();
+            return _schoolDbContext.Assignments.SingleOrDefault(dd => dd.AssignmentId == id);
         }
 
         public bool UpdateAssignment(Assignment assignment)
         {
-            throw new NotImplementedException();
+            bool wasUpdate = false;
+
+            Assignment qqq = _schoolDbContext.Assignments.SingleOrDefault(yy => yy.AssignmentId == assignment.AssignmentId);//Najti i ydalit
+
+            if (qqq == null)
+            {
+                return wasUpdate;
+            }
+
+            _schoolDbContext.Assignments.Remove(qqq);
+            _schoolDbContext.SaveChanges();
+
+            return wasUpdate;
         }
+            
     }
 }

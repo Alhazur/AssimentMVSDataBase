@@ -19,10 +19,15 @@ namespace AssimentMVSDataBase.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(_courseService.AllCourse());
         }
 
+        public IActionResult CreateCourse()
+        {
+            return View();
+        }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateCourse([Bind("Title, Description")] Course course)
         {
             if (ModelState.IsValid)
@@ -49,6 +54,7 @@ namespace AssimentMVSDataBase.Controllers
             return View(ff);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Course course)
         {
 
