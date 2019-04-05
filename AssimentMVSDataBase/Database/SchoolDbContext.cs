@@ -28,7 +28,7 @@ namespace AssimentMVSDataBase.Database
 
             modelBuilder.Entity<StudentsCourses>()
                 .HasOne(pt => pt.Student)
-                .WithMany(t => t.Cource)
+                .WithMany(t => t.Course)
                 .HasForeignKey(pt => pt.StudentId);
         }
     }

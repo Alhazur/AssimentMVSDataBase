@@ -1,5 +1,6 @@
 ﻿using AssimentMVSDataBase.Database;
 using AssimentMVSDataBase.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Teacher> AllTeacher()
         {
-            return _schoolDbContext.Teacher.ToList();
+            return _schoolDbContext.Teacher.Include(c => c.Course).ToList();
         }
 
         public Teacher CreateTeacher(string name, string description)
@@ -34,7 +35,7 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             bool wasRemoved = false;
 
-            Teacher teacher = _schoolDbContext.Teacher.SingleOrDefault(g => g.Id == id);
+            Teacher teacher = _schoolDbContext.Teacher.SingleOrDefault(g => g.TeacherId == id);
 
             if (teacher == null)
             {
@@ -48,14 +49,14 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Teacher FindTeacher(int id)
         {
-            return _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == id);
+            return _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.TeacherId == id);
 
         }
 
         public bool UpdateTeacher(Teacher teacher)
         {
             bool wasUpdate = false;
-            Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teacher.Id);
+            Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.TeacherId == teacher.TeacherId);
             {
                 if (stud != null)
                 {

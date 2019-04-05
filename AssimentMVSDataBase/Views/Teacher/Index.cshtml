@@ -1,8 +1,8 @@
-﻿@model List<AssimentMVSDataBase.Models.Teacher>
+﻿@model IEnumerable<Teacher>
 @*@model List<Teacher>*@
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Teacher";
 }
 
 <br />
@@ -22,6 +22,12 @@
                 Description
             </th>
             <th>
+                Course Name
+            </th>
+            <th>
+                Course Description
+            </th>
+            <th>
                 Options
             </th>
         </tr>
@@ -36,9 +42,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
+                @foreach (var value in item.Course)
+                {
+                    <td>
+                        @Html.DisplayFor(valueItem => value.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(valueItem => value.Description)
+                    </td>
+                }
                 <td>
-                    <a class="btn btn-primary" asp-controller="Teacher" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-danger" asp-controller="Teacher" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Teacher" asp-action="Edit" asp-route-id="@item.TeacherId">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Teacher" asp-action="Delete" asp-route-id="@item.TeacherId">Delete</a>
                 </td>
             </tr>
         }

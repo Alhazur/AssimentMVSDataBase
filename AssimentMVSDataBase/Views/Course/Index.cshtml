@@ -2,7 +2,7 @@
 @*@model List<Course>*@
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Course";
 }
 
 <br />
@@ -22,27 +22,38 @@
                 Description
             </th>
             <th>
+                Teacher Name
+            </th>
+            <th>
+                Teacher Description
+            </th>
+            <th>
                 Options
             </th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-            <td>
-                <a class="btn btn-primary" asp-controller="Course" asp-action="Edit" asp-route-id="@item.CourseId">Edit</a>
-                <a class="btn btn-danger" asp-controller="Course" asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
-            </td>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.Description)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Course" asp-action="Edit" asp-route-id="@item.CourseId">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Course" asp-action="Delete" asp-route-id="@item.CourseId">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

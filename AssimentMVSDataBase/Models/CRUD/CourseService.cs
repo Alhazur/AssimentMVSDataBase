@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssimentMVSDataBase.Models.Mock
 {
@@ -16,8 +17,8 @@ namespace AssimentMVSDataBase.Models.Mock
         }
 
         public List<Course> AllCourse()
-        {
-            return _schoolDbContext.Courses.ToList();
+        {//                           till   ta med      Class teacher
+            return _schoolDbContext.Courses.Include(c => c.Teacher).Include(c => c.Student).ToList();
         }
 
         public Course CreateCourse(string title, string description)

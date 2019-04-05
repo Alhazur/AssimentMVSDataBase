@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AssimentMVSDataBase.Models.Mock
 {
@@ -18,7 +20,7 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Student> AllStudents()
         {
-            return _schoolDbContext.Students.ToList();
+            return _schoolDbContext.Students.Include(c => c.Course).ToList();
         }
 
         public Student CreateStudent(string name, string phone, string location)
