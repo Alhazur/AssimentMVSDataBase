@@ -57,7 +57,7 @@ namespace AssimentMVSDataBase.Models.Interface
 
             Assignment qqq = _schoolDbContext.Assignments.SingleOrDefault(yy => yy.AssignmentId == assignment.AssignmentId);//Najti i ydalit
 
-            if (qqq == null)
+            if (qqq != null)
             {
                 return wasUpdate;
             }

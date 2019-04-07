@@ -18,6 +18,7 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Course> AllCourse()
         {//                           till   ta med      Class teacher
+            //DbSet<Course> crs = _schoolDbContext.Courses;
             return _schoolDbContext.Courses.Include(c => c.Teacher).Include(c => c.Student).ToList();
         }
 

@@ -42,15 +42,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Location)
                 </td>
-                @foreach (var value in item.Course)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                }
                 <td>
                     <a class="btn btn-primary" asp-controller="Student" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
