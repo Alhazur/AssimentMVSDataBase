@@ -19,6 +19,8 @@
                 <input asp-for="Description" />
             </dd>
             <dt>Teacher Name</dt>
+            @*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ *@
+
             <dd>
                 <select name="Teacher.Id">
                     @foreach (var item in (List<Teacher>)ViewBag.Teachers)
@@ -27,16 +29,12 @@
                     }
                 </select>
             </dd>
-        
+            @*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ *@
             <dt>
-                <button class="btn btn-success" asp-controller="Course" asp-action="Edit">
-                    Save
-                </button>
+                <button class="btn btn-success" asp-controller="Course" asp-action="Edit">Save</button>
             </dt>
             <dd>
-                <button class="btn btn-secondary" asp-controller="Course" asp-action="Index">
-                    Back
-                </button>
+                <button class="btn btn-secondary" asp-controller="Course" asp-action="Index">Back</button>
             </dd>
         </dl>
     </div>

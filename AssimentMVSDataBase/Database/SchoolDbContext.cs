@@ -32,12 +32,12 @@ namespace AssimentMVSDataBase.Database
                 .HasForeignKey(pt => pt.StudentId);
 
             modelBuilder.Entity<Course>()
-            .HasMany(c => c.Assignments)
-            .WithOne();
+                .HasMany(c => c.Assignments)
+                .WithOne();
 
             modelBuilder.Entity<Teacher>()
-           .HasMany(t => t.Courses)
-           .WithOne(t => t.Teacher);
+                .HasMany(t => t.Courses)
+                .WithOne(t => t.Teacher);
         }
     }
 }

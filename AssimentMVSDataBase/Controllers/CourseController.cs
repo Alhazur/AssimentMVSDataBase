@@ -6,17 +6,18 @@ using AssimentMVSDataBase.Models;
 using AssimentMVSDataBase.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace AssimentMVSDataBase.Controllers
 {
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
-        private readonly ITeacherService _teacherService;
+        private readonly ITeacherService _teacherService;//+++++++++++++++++++++++++
 
         public CourseController(ICourseService courseService, ITeacherService teacherService)
         {
             _courseService = courseService;
-            _teacherService = teacherService;
+            _teacherService = teacherService;//+++++++++++++++++++++++++
         }
 
         public IActionResult Index()
@@ -28,6 +29,7 @@ namespace AssimentMVSDataBase.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateCourse([Bind("Title, Description")] Course course)
@@ -57,6 +59,7 @@ namespace AssimentMVSDataBase.Controllers
 
             return View(ff);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Course course)
@@ -73,6 +76,7 @@ namespace AssimentMVSDataBase.Controllers
 
             return View(course);
         }
+
         public IActionResult Delete(int? id)
         {
             if (id != null)

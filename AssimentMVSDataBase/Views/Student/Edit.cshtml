@@ -7,6 +7,7 @@
 <h1>Edit Student</h1>
 
 <form asp-controller="Student" asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
     <div class="col-12">
         <dl class="dl-horizontal">
             <dt>Name</dt>
@@ -22,14 +23,10 @@
                 <input asp-for="Location" />
             </dd>
             <dt>
-                <button class="btn btn-success" asp-controller="Student" asp-action="Edit">
-                    Save
-                </button>
+                <button class="btn btn-success" asp-controller="Student" asp-action="Edit">Save</button>
             </dt>
             <dd>
-                <button class="btn btn-secondary" asp-controller="Student" asp-action="Index">
-                    Back
-                </button>
+                <button class="btn btn-secondary" asp-controller="Student" asp-action="Index">Back</button>
             </dd>
         </dl>
     </div>

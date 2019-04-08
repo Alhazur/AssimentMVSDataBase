@@ -40,6 +40,7 @@ namespace AssimentMVSDataBase.Controllers
 
             return View(student);//gick inte vidare utan måste skriva allt 
         }
+
         [HttpGet]
         public IActionResult Edit(int? id)//kolla efter id
         {
@@ -52,8 +53,12 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
+
+
+
             return View(student);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Student student)
