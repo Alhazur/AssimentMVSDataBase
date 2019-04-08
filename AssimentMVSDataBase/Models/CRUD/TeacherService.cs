@@ -20,14 +20,14 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Teacher> AllTeacher()
         {
-            return _schoolDbContext.Teacher.Include(c => c.Course).ToList();
+            return _schoolDbContext.Teachers.Include(c => c.Courses).ToList();
         }
 
         public Teacher CreateTeacher(string name, string description)
         {
             Teacher teacher = new Teacher() { Name = name, Description = description };
 
-            _schoolDbContext.Teacher.Add(teacher);
+            _schoolDbContext.Teachers.Add(teacher);
             _schoolDbContext.SaveChanges();
             return teacher;
         }
@@ -36,28 +36,28 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             bool wasRemoved = false;
 
-            Teacher teacher = _schoolDbContext.Teacher.SingleOrDefault(g => g.Id == id);
+            Teacher teacher = _schoolDbContext.Teachers.SingleOrDefault(g => g.Id == id);
 
             if (teacher == null)
             {
                 return wasRemoved;
             }
 
-            _schoolDbContext.Teacher.Remove(teacher);
+            _schoolDbContext.Teachers.Remove(teacher);
             _schoolDbContext.SaveChanges();
             return wasRemoved;
         }
 
         public Teacher FindTeacher(int id)
         {
-            return _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == id);
+            return _schoolDbContext.Teachers.SingleOrDefault(teachers => teachers.Id == id);
 
         }
 
         public bool UpdateTeacher(Teacher teacher)
         {
             bool wasUpdate = false;
-            Teacher stud = _schoolDbContext.Teacher.SingleOrDefault(teachers => teachers.Id == teacher.Id);
+            Teacher stud = _schoolDbContext.Teachers.SingleOrDefault(teachers => teachers.Id == teacher.Id);
             {
                 if (stud != null)
                 {

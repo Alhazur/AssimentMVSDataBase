@@ -76,5 +76,19 @@ namespace AssimentMVSDataBase.Controllers
             }
             return Content("");
         }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var student = _student.FindStudent((int)id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
     }
 }

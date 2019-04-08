@@ -20,7 +20,7 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Student> AllStudents()
         {
-            return _schoolDbContext.Students.Include(c => c.Course).ToList();
+            return _schoolDbContext.Students.Include(c => c.StudentsCourses).ToList();
         }
 
         public Student CreateStudent(string name, string phone, string location)

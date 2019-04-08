@@ -1,0 +1,46 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Student's info</h4>
+    <hr />
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </div>
+        <div class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </div>
+        <div class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </div>
+
+        <div>
+            @if (Model.StudentsCourses != null)
+            {
+                @foreach (var item in Model.StudentsCourses)
+                {
+                    @Html.DisplayFor(modelItem => item.CourseId)
+                }
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-controller="Student" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

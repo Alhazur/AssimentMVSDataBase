@@ -14,6 +14,6 @@ namespace AssimentMVSDataBase.Models
         [Required]
         public string Description { get; set; }
 
-        public List<Course> Course { get; set; }
+        public List<Course> Courses { get; set; }
     }
 }

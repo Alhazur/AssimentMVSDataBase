@@ -18,8 +18,7 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Course> AllCourse()
         {//                           till   ta med      Class teacher
-            //DbSet<Course> crs = _schoolDbContext.Courses;
-            return _schoolDbContext.Courses.Include(c => c.Teacher).Include(c => c.Student).ToList();
+            return _schoolDbContext.Courses.Include(c => c.Teacher).Include(c => c.StudentsCourses).ToList();
         }
 
         public Course CreateCourse(string title, string description)
@@ -48,8 +47,8 @@ namespace AssimentMVSDataBase.Models.Mock
         }
 
         public Course FindCourse(int id)
-        {
-            return _schoolDbContext.Courses.SingleOrDefault(courses => courses.CourseId == id);
+        {//                                 Lägg till teacher för att visa i view
+            return _schoolDbContext.Courses.Include( c => c.Teacher ).SingleOrDefault(courses => courses.CourseId == id);
         }
 
         public bool UpdateCourse(Course course)
@@ -62,6 +61,16 @@ namespace AssimentMVSDataBase.Models.Mock
                 {
                     item.Title = course.Title;
                     item.Description = course.Description;
+                    
+                    if (course.Teacher != null)// glöm inte att lägga till
+                    {
+                        item.Teacher = course.Teacher;
+                    }
+
+                    if (course.StudentsCourses != null)// glöm inte att lägga till
+                    {
+                        item.StudentsCourses = course.StudentsCourses;
+                    }
 
                     _schoolDbContext.SaveChanges();
                     wasUpdate = true;

@@ -11,10 +11,12 @@ namespace AssimentMVSDataBase.Controllers
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
+        private readonly ITeacherService _teacherService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService, ITeacherService teacherService)
         {
             _courseService = courseService;
+            _teacherService = teacherService;
         }
 
         public IActionResult Index()
@@ -51,6 +53,8 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Teachers = _teacherService.AllTeacher();//////////////////////////////
+
             return View(ff);
         }
         [HttpPost]
@@ -64,6 +68,9 @@ namespace AssimentMVSDataBase.Controllers
                 return RedirectToAction(nameof(Index));
 
             }
+
+            ViewBag.Teachers = _teacherService.AllTeacher();////////////////////777
+
             return View(course);
         }
         public IActionResult Delete(int? id)
@@ -74,6 +81,20 @@ namespace AssimentMVSDataBase.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return Content("");
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var ff = _courseService.FindCourse((int)id);
+            if (ff == null)
+            {
+                return NotFound();
+            }
+            return View(ff);
         }
     }
 }

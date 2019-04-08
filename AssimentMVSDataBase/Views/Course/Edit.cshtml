@@ -20,12 +20,14 @@
             </dd>
             <dt>Teacher Name</dt>
             <dd>
-                <input asp-for="Teacher.Name" />
+                <select name="Teacher.Id">
+                    @foreach (var item in (List<Teacher>)ViewBag.Teachers)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
             </dd>
-            <dt>Teacher Description</dt>
-            <dd>
-                <input asp-for="Teacher.Description" />
-            </dd>
+        
             <dt>
                 <button class="btn btn-success" asp-controller="Course" asp-action="Edit">
                     Save
