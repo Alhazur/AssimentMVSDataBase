@@ -13,11 +13,17 @@ namespace AssimentMVSDataBase.Controllers
     {
         private readonly ICourseService _courseService;
         private readonly ITeacherService _teacherService;//+++++++++++++++++++++++++
+        private readonly IAssignmentService _assignmentService;
+        private readonly IStudentService _studentService;
 
-        public CourseController(ICourseService courseService, ITeacherService teacherService)
+        
+
+        public CourseController(ICourseService courseService, ITeacherService teacherService, IAssignmentService assignmentService, IStudentService studentService)
         {
             _courseService = courseService;
             _teacherService = teacherService;//+++++++++++++++++++++++++
+            _assignmentService = assignmentService;
+            _studentService = studentService;
         }
 
         public IActionResult Index()
@@ -50,14 +56,18 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
-            var ff = _courseService.FindCourse((int)id);
-            if (ff == null)
+            var course = _courseService.FindCourse((int)id);
+            if (course == null)
             {
                 return NotFound();
             }
-            ViewBag.Teachers = _teacherService.AllTeacher();//////////////////////////////
 
-            return View(ff);
+            CourseViewModel CourseViewModel = new CourseViewModel();
+            CourseViewModel.course = course;
+            CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
+            
+
+            return View(CourseViewModel);
         }
 
         [HttpPost]
@@ -72,9 +82,12 @@ namespace AssimentMVSDataBase.Controllers
 
             }
 
-            ViewBag.Teachers = _teacherService.AllTeacher();////////////////////777
+            CourseViewModel CourseViewModel = new CourseViewModel();
+            CourseViewModel.course = course;
+            CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
+            CourseViewModel.students = _studentService.AllStudents();
 
-            return View(course);
+            return View(CourseViewModel);
         }
 
         public IActionResult Delete(int? id)
@@ -93,12 +106,20 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
-            var ff = _courseService.FindCourse((int)id);
-            if (ff == null)
+            var course = _courseService.FindCourse((int)id);
+            if (course == null)
             {
                 return NotFound();
             }
-            return View(ff);
+
+            CourseViewModel CourseViewModel = new CourseViewModel();
+            CourseViewModel.course = course;
+            //CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
+            //CourseViewModel.students = _studentService.AllStudents();
+
+            return View(CourseViewModel);
+
+
         }
     }
 }

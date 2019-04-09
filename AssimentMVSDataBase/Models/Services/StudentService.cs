@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace AssimentMVSDataBase.Models.Mock
 {
     public class StudentService : IStudentService
@@ -50,7 +49,9 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Student FindStudent(int id)
         {
-            return _schoolDbContext.Students.SingleOrDefault(f => f.Id == id);
+            return _schoolDbContext.Students
+                .Include(f => f.StudentsCourses)
+                .SingleOrDefault(f => f.Id == id);///////////////////////
         }
 
         public bool UpdateStudent(Student student)
@@ -63,6 +64,11 @@ namespace AssimentMVSDataBase.Models.Mock
                     stud.Name = student.Name;
                     stud.Phone = student.Phone;
                     stud.Location = student.Location;
+
+                    if (student.StudentsCourses != null)
+                    {
+                        stud.StudentsCourses = student.StudentsCourses;////////////////////////////////////////////
+                    }
 
                     _schoolDbContext.SaveChanges();
                     wasUpdate = true;

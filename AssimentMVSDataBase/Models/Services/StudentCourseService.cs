@@ -1,60 +1,29 @@
 ﻿using AssimentMVSDataBase.Database;
+using AssimentMVSDataBase.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace AssimentMVSDataBase.Models.Mock
+namespace AssimentMVSDataBase.Models.Services
 {
-    public class CourseService : ICourseService
-    {        
+    public class StudentCourseService
+    {
         readonly SchoolDbContext _schoolDbContext;
 
-        public CourseService(SchoolDbContext schoolDbContext)
+        public StudentCourseService(SchoolDbContext schoolDbContext)
         {
             _schoolDbContext = schoolDbContext;
         }
 
-        public List<Course> AllCourse()
-        {//                           till   ta med      Class teacher
-            return _schoolDbContext.Courses
-                .Include(c => c.Teacher)
-                .Include(c => c.StudentsCourses).ToList();
-        }
-
-        public Course CreateCourse(string title, string description)
-        {
-            Course course = new Course() { Title = title, Description = description };
-
-            _schoolDbContext.Courses.Add(course);
-            _schoolDbContext.SaveChanges();
-            return course;
-        }
-
-        public bool DeleteCourse(int id)
-        {
-            bool wasRemoved = false;
-
-            Course course = _schoolDbContext.Courses.SingleOrDefault(courses => courses.CourseId == id);//Najti i ydalit
-
-            if (course == null)
-            {
-                return wasRemoved;
-            }
-
-            _schoolDbContext.Courses.Remove(course);
-            _schoolDbContext.SaveChanges();
-            return wasRemoved;
-        }
-
         public Course FindCourse(int id)
-        {//                                 Lägg till teacher för att visa i view
+        {
             return _schoolDbContext.Courses
                 .Include(c => c.Teacher)
                 .Include(c => c.StudentsCourses)
                 .Include(c => c.Assignments)
-                .SingleOrDefault(courses => courses.CourseId == id);//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                .SingleOrDefault(courses => courses.CourseId == id);
         }
 
         public bool UpdateCourse(Course course)
@@ -78,7 +47,7 @@ namespace AssimentMVSDataBase.Models.Mock
                         item.StudentsCourses = course.StudentsCourses;
                     }
 
-                    if(course.Assignments != null)
+                    if (course.Assignments != null)
                     {
                         item.Assignments = course.Assignments;
                     }

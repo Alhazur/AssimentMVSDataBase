@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AssimentMVSDataBase.Database;
 using AssimentMVSDataBase.Models.Class;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssimentMVSDataBase.Models.Interface
 {

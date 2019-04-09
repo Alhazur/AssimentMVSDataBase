@@ -1,42 +1,45 @@
-﻿@model Course
+﻿@model CourseViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Course</h1>
+<h1>Edit</h1>
 
-<form asp-controller="Course" asp-action="Edit">
-    <input type="hidden" asp-for="CourseId" />
-    <div class="col-12">
-        <dl class="dl-horizontal">
-            <dt>Title</dt>
-            <dd>
-                <input asp-for="Title" />
-            </dd>
-            <dt>Description</dt>
-            <dd>
-                <input asp-for="Description" />
-            </dd>
-            <dt>Teacher Name</dt>
-            @*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ *@
-
-            <dd>
-                <select name="Teacher.Id">
-                    @foreach (var item in (List<Teacher>)ViewBag.Teachers)
+<h4>Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Course" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="course.CourseId" />
+            <div class="form-group">
+                <label asp-for="course.Title" class="control-label"></label>
+                <input asp-for="course.Title" class="form-control" />
+                <span asp-validation-for="course.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="course.Description" class="control-label"></label>
+                <input asp-for="course.Description" class="form-control" />
+                <span asp-validation-for="course.Description" class="text-danger"></span>
+            </div>
+            @* -------------------------------------------------------------------------- *@
+            <div class="form-group">
+                <select asp-for="course.Teacher.Id">
+                    @foreach (var item in Model.teachers)
                     {
                         <option value="@item.Id">@item.Name</option>
                     }
                 </select>
-            </dd>
-            @*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ *@
-            <dt>
-                <button class="btn btn-success" asp-controller="Course" asp-action="Edit">Save</button>
-            </dt>
-            <dd>
-                <button class="btn btn-secondary" asp-controller="Course" asp-action="Index">Back</button>
-            </dd>
-        </dl>
+            </div>            
+            @* -------------------------------------------------------------------------- *@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
