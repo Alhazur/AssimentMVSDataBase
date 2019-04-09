@@ -84,7 +84,7 @@ namespace AssimentMVSDataBase.Controllers
 
             CourseViewModel CourseViewModel = new CourseViewModel();
             CourseViewModel.course = course;
-            CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
+            CourseViewModel.teachers = _teacherService.AllTeacher();//för att byta id tx
             CourseViewModel.students = _studentService.AllStudents();
 
             return View(CourseViewModel);
@@ -114,8 +114,6 @@ namespace AssimentMVSDataBase.Controllers
 
             CourseViewModel CourseViewModel = new CourseViewModel();
             CourseViewModel.course = course;
-            //CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
-            //CourseViewModel.students = _studentService.AllStudents();
 
             return View(CourseViewModel);
 

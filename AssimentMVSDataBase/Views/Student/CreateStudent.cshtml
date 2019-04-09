@@ -27,7 +27,10 @@
                     <input asp-for="Location" class="form-control" />
                     <span asp-validation-for="Location" class="text-danger"></span>
                 </div>
-                <input type="submit" value="Create Student" class="btn btn-sm btn-success" />
+                <div class="form-group">
+                    <input type="submit" value="Create Student" class="btn btn-sm btn-success" />
+                    <a class="btn btn-danger" asp-action="Index">Back to List</a>
+                </div>
             </div>
         </form>
     </div>
