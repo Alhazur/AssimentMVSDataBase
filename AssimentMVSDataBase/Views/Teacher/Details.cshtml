@@ -1,47 +1,46 @@
-﻿@model CourseViewModel
+﻿@model Teacher
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
-<h2>Courses info</h2>
+<h2>Teacher's info</h2>
 <hr />
 
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            Title
+            Name
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Course.Title)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
             Description
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Course.Description)
+            @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class="col-sm-2">
-            Teacher
+            Courses
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Course.Teacher.Name)
-            
+            @Html.DisplayFor(model => model.Courses)
         </dd>
-        <dt class="col-sm-2">
+        @*<dt class="col-sm-2">
             Students
         </dt>
         <dd class="col-sm-10">
-            @foreach (var item in Model.Course.StudentsCourses)
+            @foreach (var item in Model.course.StudentsCourses)
             {
                 @Html.DisplayFor(modelItem => item.Student.Name)
             }
-            ??
-        </dd>
+            ???
+        </dd>*@
     </dl>
 </div>
 <div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-Id="@Model.Course.CourseId">Edit</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-Id="@Model.Id">Edit</a>
     <a class="btn btn-danger" asp-action="Index">Back to List</a>
 </div>

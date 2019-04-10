@@ -50,19 +50,26 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Teacher FindTeacher(int id)
         {
-            return _schoolDbContext.Teachers.SingleOrDefault(teachers => teachers.Id == id);
+            return _schoolDbContext.Teachers
+                .Include(f => f.Courses)
+                .SingleOrDefault(teachers => teachers.Id == id);
 
         }
 
         public bool UpdateTeacher(Teacher teacher)
         {
             bool wasUpdate = false;
-            Teacher stud = _schoolDbContext.Teachers.SingleOrDefault(teachers => teachers.Id == teacher.Id);
+            Teacher stud = _schoolDbContext.Teachers.Include(c => c.Courses).SingleOrDefault(teachers => teachers.Id == teacher.Id);
             {
                 if (stud != null)
                 {
                     stud.Name = teacher.Name;
                     stud.Description = teacher.Description;
+
+                    if (teacher.Courses != null)
+                    {
+                        stud.Courses = teacher.Courses;
+                    }
 
                     _schoolDbContext.SaveChanges();
                     wasUpdate = true;

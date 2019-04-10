@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AssimentMVSDataBase.Models.Mock
 {
     public class CourseService : ICourseService
-    {        
+    {
         readonly SchoolDbContext _schoolDbContext;
 
         public CourseService(SchoolDbContext schoolDbContext)
@@ -20,7 +20,21 @@ namespace AssimentMVSDataBase.Models.Mock
         {//                           till   ta med      Class teacher
             return _schoolDbContext.Courses
                 .Include(c => c.Teacher)
-                .Include(c => c.StudentsCourses).ToList();
+                .Include(c => c.StudentsCourses)
+                .ThenInclude(c => c.Student)
+                .Include(c => c.Assignments)
+                .ToList();
+        }
+
+        public void AssingCourseToTeacher(int courseId, int teacherId)//11111111111111111
+        {
+            Course course = _schoolDbContext.Courses.Include(t => t.Teacher).SingleOrDefault(c => c.CourseId == courseId);
+            var teacher = _schoolDbContext.Teachers.SingleOrDefault(t => t.Id == teacherId);
+
+            course.Teacher = teacher;
+            //course.Teacher = null;
+
+            _schoolDbContext.SaveChanges();
         }
 
         public Course CreateCourse(string title, string description)
@@ -50,43 +64,42 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Course FindCourse(int id)
         {//                                 Lägg till teacher för att visa i view
-            return _schoolDbContext.Courses
+            var course = _schoolDbContext.Courses
                 .Include(c => c.Teacher)
                 .Include(c => c.StudentsCourses)
+                .Include("StudentsCourses.Student")
                 .Include(c => c.Assignments)
-                .SingleOrDefault(courses => courses.CourseId == id);//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                .SingleOrDefault(courses => courses.CourseId == id);
+
+            return course;
         }
 
         public bool UpdateCourse(Course course)
         {
             bool wasUpdate = false;
 
-            Course item = _schoolDbContext.Courses.SingleOrDefault(qq => qq.CourseId == course.CourseId);
+            Course oldCourse = FindCourse(course.CourseId);//använda method FindCourse eftersom den tar med sig teacher, student
+
+            if (oldCourse != null)
             {
-                if (item != null)
+                oldCourse.Title = course.Title;
+                oldCourse.Description = course.Description;
+                oldCourse.Teacher = course.Teacher;//den visar gammla value
+                
+                if (course.StudentsCourses != null)// glöm inte att lägga till
                 {
-                    item.Title = course.Title;
-                    item.Description = course.Description;
-
-                    if (course.Teacher != null)// glöm inte att lägga till//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    {
-                        item.Teacher = course.Teacher;
-                    }
-
-                    if (course.StudentsCourses != null)// glöm inte att lägga till
-                    {
-                        item.StudentsCourses = course.StudentsCourses;
-                    }
-
-                    if(course.Assignments != null)
-                    {
-                        item.Assignments = course.Assignments;
-                    }
-
-                    _schoolDbContext.SaveChanges();
-                    wasUpdate = true;
+                    oldCourse.StudentsCourses = course.StudentsCourses;
                 }
+
+                if (course.Assignments != null)
+                {
+                    oldCourse.Assignments = course.Assignments;
+                }
+
+                _schoolDbContext.SaveChanges();
+                wasUpdate = true;
             }
+
             return wasUpdate;
         }
     }

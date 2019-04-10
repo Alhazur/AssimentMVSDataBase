@@ -61,33 +61,44 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
+            //cvm vill be used her
+            CourseVM CourseViewModel = new CourseVM
+            {
+                CourseId = course.CourseId,
+                Title = course.Title,
+                Description = course.Description,
+                Teachers = _teacherService.AllTeacher()
+            };
 
-            CourseViewModel CourseViewModel = new CourseViewModel();
-            CourseViewModel.course = course;
-            CourseViewModel.teachers = _teacherService.AllTeacher();//////////////////////////////
-            
 
             return View(CourseViewModel);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Course course)
-        {
-
+        [ValidateAntiForgeryToken]//and then her
+        public IActionResult Edit(CourseVM course)
+        {            
             if (ModelState.IsValid)
             {
-                _courseService.UpdateCourse(course);
+                var teacher = _teacherService.FindTeacher(course.TeacherId);//använda hitta teacher
+                var courseToUpdate = new Course
+                {
+                    Title = course.Title,
+                    Description = course.Description,
+                    Teacher = teacher,
+                    CourseId = course.CourseId
+                };
+                _courseService.UpdateCourse(courseToUpdate);
                 return RedirectToAction(nameof(Index));
 
             }
 
-            CourseViewModel CourseViewModel = new CourseViewModel();
-            CourseViewModel.course = course;
-            CourseViewModel.teachers = _teacherService.AllTeacher();//för att byta id tx
-            CourseViewModel.students = _studentService.AllStudents();
+            //CourseViewModel CourseViewModel = new CourseViewModel();
+            //CourseViewModel.course = new Course();
+            //CourseViewModel.teachers = _teacherService.AllTeacher();//för att byta id tx
+            //CourseViewModel.students = _studentService.AllStudents();
 
-            return View(CourseViewModel);
+            return View(course);
         }
 
         public IActionResult Delete(int? id)
@@ -113,11 +124,9 @@ namespace AssimentMVSDataBase.Controllers
             }
 
             CourseViewModel CourseViewModel = new CourseViewModel();
-            CourseViewModel.course = course;
+            CourseViewModel.Course = course;
 
             return View(CourseViewModel);
-
-
         }
     }
 }

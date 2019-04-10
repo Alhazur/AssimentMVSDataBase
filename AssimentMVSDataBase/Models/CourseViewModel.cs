@@ -9,10 +9,10 @@ namespace AssimentMVSDataBase.Models
     public class CourseViewModel
     {
         
-        public List<Teacher> teachers = new List<Teacher>();
+        public List<Teacher> Teachers = new List<Teacher>();
 
-        public List<Student> students = new List<Student>();
+        public List<Student> Students = new List<Student>();
 
-        public Course course { get; set; }
+        public Course Course { get; set; }
     }
 }
