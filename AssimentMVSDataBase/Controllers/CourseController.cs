@@ -45,7 +45,6 @@ namespace AssimentMVSDataBase.Controllers
                 course = _courseService.CreateCourse(course.Title, course.Description);
                 return RedirectToAction(nameof(Index));                              
             }
-
             return View(course);
         }
 
@@ -61,7 +60,7 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
-            //cvm vill be used her
+            //cvm will be used her in the controller
             CourseVM CourseViewModel = new CourseVM
             {
                 CourseId = course.CourseId,
@@ -69,8 +68,6 @@ namespace AssimentMVSDataBase.Controllers
                 Description = course.Description,
                 Teachers = _teacherService.AllTeacher()
             };
-
-
             return View(CourseViewModel);
         }
 
@@ -90,7 +87,6 @@ namespace AssimentMVSDataBase.Controllers
                 };
                 _courseService.UpdateCourse(courseToUpdate);
                 return RedirectToAction(nameof(Index));
-
             }
 
             //CourseViewModel CourseViewModel = new CourseViewModel();

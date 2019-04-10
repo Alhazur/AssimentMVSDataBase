@@ -19,7 +19,7 @@ namespace AssimentMVSDataBase.Models
 
         public List<Teacher> Teachers { get; set; }
 
-        public List<StudentsCourses> StudentsCourses { get; set; }
+        //public List<StudentsCourses> StudentsCourses { get; set; }
 
         //public List<Assignment> Assignments { get; set; }
 

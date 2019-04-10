@@ -39,7 +39,10 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public Course CreateCourse(string title, string description)
         {
-            Course course = new Course() { Title = title, Description = description };
+            Course course = new Course()
+            {   Title = title,
+                Description = description
+            };
 
             _schoolDbContext.Courses.Add(course);
             _schoolDbContext.SaveChanges();

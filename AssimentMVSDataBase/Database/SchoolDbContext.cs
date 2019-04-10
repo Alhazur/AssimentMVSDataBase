@@ -19,17 +19,17 @@ namespace AssimentMVSDataBase.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudentsCourses>()
-                .HasKey(t => new { t.CourseId, t.StudentId });
-
-            modelBuilder.Entity<StudentsCourses>()
-                .HasOne(pt => pt.Course)
-                .WithMany(pt => pt.StudentsCourses)
-                .HasForeignKey(pt => pt.CourseId);
+                .HasKey(t => new { t.StudentId, t.CourseId });
 
             modelBuilder.Entity<StudentsCourses>()
                 .HasOne(pt => pt.Student)
                 .WithMany(t => t.StudentsCourses)
                 .HasForeignKey(pt => pt.StudentId);
+
+            modelBuilder.Entity<StudentsCourses>()
+                .HasOne(pt => pt.Course)
+                .WithMany(pt => pt.StudentsCourses)
+                .HasForeignKey(pt => pt.CourseId);
 
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Assignments)
