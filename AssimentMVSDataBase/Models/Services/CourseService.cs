@@ -68,7 +68,7 @@ namespace AssimentMVSDataBase.Models.Mock
         public Course FindCourse(int id)
         {//                                 Lägg till teacher för att visa i view
             var course = _schoolDbContext.Courses
-                .Include(c => c.Teacher)
+                .Include(c => c.Teacher)// här den visar i Details
                 .Include(c => c.StudentsCourses)
                 .Include("StudentsCourses.Student")
                 .Include(c => c.Assignments)
@@ -87,8 +87,12 @@ namespace AssimentMVSDataBase.Models.Mock
             {
                 oldCourse.Title = course.Title;
                 oldCourse.Description = course.Description;
-                oldCourse.Teacher = course.Teacher;//den visar gammla value
                 
+                if (course.Teacher != null)
+                {
+                    oldCourse.Teacher = course.Teacher;//den kopplar teacher till course
+                }
+
                 if (course.StudentsCourses != null)// glöm inte att lägga till
                 {
                     oldCourse.StudentsCourses = course.StudentsCourses;
