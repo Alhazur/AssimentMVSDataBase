@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using AssimentMVSDataBase.Models.Class;
 
 namespace AssimentMVSDataBase.Models.Mock
 {
@@ -26,28 +27,41 @@ namespace AssimentMVSDataBase.Models.Mock
                 .ToList();
         }
 
-        public void AssingCourseToTeacher(int courseId, int teacherId)//11111111111111111
-        {
-            Course course = _schoolDbContext.Courses.Include(t => t.Teacher).SingleOrDefault(c => c.CourseId == courseId);
-            var teacher = _schoolDbContext.Teachers.SingleOrDefault(t => t.Id == teacherId);
+        //public void AssingCourseToTeacher(int courseId, int teacherId)//11111111111111111
+        //{
+        //    Course course = _schoolDbContext.Courses.Include(t => t.Teacher).SingleOrDefault(c => c.CourseId == courseId);
+        //    var teacher = _schoolDbContext.Teachers.SingleOrDefault(t => t.Id == teacherId);
 
-            course.Teacher = teacher;
-            //course.Teacher = null;
+        //    course.Teacher = teacher;
+        //    //course.Teacher = null;
 
-            _schoolDbContext.SaveChanges();
-        }
+        //    _schoolDbContext.SaveChanges();
+        //}
 
         public Course CreateCourse(string title, string description)
         {
             Course course = new Course()
             {   Title = title,
                 Description = description
-            };
+            };          
 
             _schoolDbContext.Courses.Add(course);
             _schoolDbContext.SaveChanges();
             return course;
         }
+
+        //public Assignment CreateAssignment(string title, string description)
+        //{
+        //    Assignment assignment = new Assignment()
+        //    {
+        //        Title = title,
+        //        Description = title
+        //    };
+
+        //    _schoolDbContext.Courses.Add(assignment);
+        //    _schoolDbContext.SaveChanges();
+        //    return assignment;
+        //}//prov
 
         public bool DeleteCourse(int id)
         {
@@ -108,6 +122,29 @@ namespace AssimentMVSDataBase.Models.Mock
             }
 
             return wasUpdate;
+        }
+
+        public void AddStudentToCourse(Course course, Student student)//tar class Course,Student o gör Many ot many genom använda StudentsCourses
+        {
+            course.StudentsCourses.Add(new StudentsCourses() { StudentId = student.Id, CourseId = course.CourseId, Course = course, Student = student });
+
+            _schoolDbContext.SaveChanges();
+        }
+
+        public bool RemoveStudentToCourse(Course course, int studentId)
+        {
+            foreach (var item in course.StudentsCourses)
+            {
+                if (item.StudentId == studentId)
+                {
+                    course.StudentsCourses.Remove(item);
+
+                    _schoolDbContext.SaveChanges();
+
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

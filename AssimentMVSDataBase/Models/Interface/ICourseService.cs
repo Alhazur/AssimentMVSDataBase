@@ -17,6 +17,11 @@ namespace AssimentMVSDataBase.Models
 
         bool DeleteCourse(int id);
 
-        void AssingCourseToTeacher(int CourseId, int teacherId);
+
+        //void AssingCourseToTeacher(int CourseId, int teacherId);
+
+        void AddStudentToCourse(Course course, Student student);
+
+        bool RemoveStudentToCourse(Course course, int studentId);
     }
 }

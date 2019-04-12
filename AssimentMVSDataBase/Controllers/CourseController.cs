@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AssimentMVSDataBase.Models;
+using AssimentMVSDataBase.Models.Class;
 using AssimentMVSDataBase.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace AssimentMVSDataBase.Controllers
         private readonly IAssignmentService _assignmentService;
         private readonly IStudentService _studentService;
 
-        
+
 
         public CourseController(ICourseService courseService, ITeacherService teacherService, IAssignmentService assignmentService, IStudentService studentService)
         {
@@ -43,9 +44,19 @@ namespace AssimentMVSDataBase.Controllers
             if (ModelState.IsValid)
             {
                 course = _courseService.CreateCourse(course.Title, course.Description);
-                return RedirectToAction(nameof(Index));                              
+                return RedirectToAction(nameof(Index));
             }
             return View(course);
+        }
+
+        public IActionResult CreateAssignment([Bind("Title, Description")] Assignment assignment)
+        {
+            if (ModelState.IsValid)
+            {
+                assignment = _assignmentService.CreateAssignment(assignment.Title, assignment.Description);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(assignment);
         }
 
         [HttpGet]
@@ -60,7 +71,7 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
-            //cvm will be used her in the controller
+            //CourseVM will be used her in the controller
             CourseVM CourseViewModel = new CourseVM
             {
                 CourseId = course.CourseId,
@@ -74,7 +85,7 @@ namespace AssimentMVSDataBase.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]//and then her
         public IActionResult Edit(CourseVM course)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 var teacher = _teacherService.FindTeacher(course.TeacherId);//använda hitta teacher
@@ -119,10 +130,77 @@ namespace AssimentMVSDataBase.Controllers
                 return NotFound();
             }
 
-            CourseViewModel CourseViewModel = new CourseViewModel();
+            CourseViewModel CourseViewModel = new CourseViewModel();//först kalla vm vilket innehåller LIST dem som vill du hantera
             CourseViewModel.Course = course;
+            //++
+            List<Student> studentsNotInCourse = _studentService.AllStudents();//för att visa all dem som ej koplat till courses
+
+            foreach (var item in course.StudentsCourses)
+            {
+                studentsNotInCourse.Remove(item.Student);
+            }
+
+            CourseViewModel.Students = studentsNotInCourse;// lägg till vm.alla studenter eller vad som helst
 
             return View(CourseViewModel);
+        }
+
+        //public IActionResult AddStudentToCourse(int id)
+        //{
+        //    var course = _courseService.FindCourse(id);
+        //    if (course == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    List<Student> students = _studentService.AllStudents();
+
+        //    foreach (var item in course.StudentsCourses)
+        //    {
+        //        students.Remove(item.Student);
+        //    }
+
+        //    ViewBag.cId = course.CourseId;
+        //    return View(students);
+        //}
+
+        public IActionResult AddStudentToCourseSave(int cId, int sId)
+        {
+            var course = _courseService.FindCourse(cId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            var student = _studentService.FindStudent(sId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var item in course.StudentsCourses)//kontrolerar om eleven redan finns
+            {
+                if (item.StudentId == sId)
+                {
+                    return RedirectToAction(nameof(Details), new { id = cId });
+                }
+            }
+
+            _courseService.AddStudentToCourse(course,student);//koplar student course med varandra        
+
+            return RedirectToAction(nameof(Details), new { id = cId });
+        }
+
+        public IActionResult RemoveStudentToCourse(int cId, int sId)//ybrat iz coursa
+        {
+            var course = _courseService.FindCourse(cId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            _courseService.RemoveStudentToCourse(course, sId);//ispolzovat method iz courseservica RemoveStudentToCourse
+
+            return RedirectToAction(nameof(Details), new { id = cId });
         }
     }
 }

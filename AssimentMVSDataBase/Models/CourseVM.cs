@@ -17,8 +17,6 @@ namespace AssimentMVSDataBase.Models
 
         public int TeacherId { get; set; }
 
-        public int StudentsCourseId { get; set; }
-
         public List<Teacher> Teachers { get; set; }
 
         //public List<StudentsCourses> StudentsCourses { get; set; }
