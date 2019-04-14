@@ -13,7 +13,7 @@ namespace AssimentMVSDataBase.Controllers
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
-        private readonly ITeacherService _teacherService;//+++++++++++++++++++++++++
+        private readonly ITeacherService _teacherService;
         private readonly IAssignmentService _assignmentService;
         private readonly IStudentService _studentService;
 
@@ -22,7 +22,7 @@ namespace AssimentMVSDataBase.Controllers
         public CourseController(ICourseService courseService, ITeacherService teacherService, IAssignmentService assignmentService, IStudentService studentService)
         {
             _courseService = courseService;
-            _teacherService = teacherService;//+++++++++++++++++++++++++
+            _teacherService = teacherService;
             _assignmentService = assignmentService;
             _studentService = studentService;
         }
@@ -79,7 +79,7 @@ namespace AssimentMVSDataBase.Controllers
                 return NotFound();
             }
             //CourseVM will be used her in the controller
-            CourseVM Nazvanie = new CourseVM
+            CourseVM Naz = new CourseVM
             {
                 CourseId = course.CourseId,
                 Title = course.Title,
@@ -87,7 +87,7 @@ namespace AssimentMVSDataBase.Controllers
                 Teachers = _teacherService.AllTeacher(),
                 Assignments = _assignmentService.AllAssignment()//001
             };
-            return View(Nazvanie);
+            return View(Naz);
         }
 
         [HttpPost]
@@ -111,10 +111,10 @@ namespace AssimentMVSDataBase.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            //CourseViewModel CourseViewModel = new CourseViewModel();
+            CourseViewModel CourseViewModel = new CourseViewModel();
             //CourseViewModel.course = new Course();
             //CourseViewModel.teachers = _teacherService.AllTeacher();//för att byta id tx
-            //CourseViewModel.students = _studentService.AllStudents();
+            //CourseViewModel.students = _studentService.AllStudents();            
 
             return View(course);
         }
@@ -124,6 +124,7 @@ namespace AssimentMVSDataBase.Controllers
             if (id != null)
             {
                 _courseService.DeleteCourse((int)id);
+                _assignmentService.DeleteAssignment((int)id);
                 return RedirectToAction(nameof(Index));
             }
             return Content("");
@@ -136,6 +137,8 @@ namespace AssimentMVSDataBase.Controllers
                 return NotFound();
             }
             var course = _courseService.FindCourse((int)id);
+            //var assignment = _assignmentService.FindAssignment((int)id);//001
+
             if (course == null)
             {
                 return NotFound();
@@ -143,6 +146,8 @@ namespace AssimentMVSDataBase.Controllers
 
             CourseViewModel CourseViewModel = new CourseViewModel();//först kalla vm vilket innehåller LIST dem som vill du hantera
             CourseViewModel.Course = course;
+            //CourseViewModel.Assignments = assignment;//001
+            CourseViewModel.Assignments = _assignmentService.AllAssignment();
             //++
             List<Student> studentsNotInCourse = _studentService.AllStudents();//för att visa all dem som ej koplat till courses
 

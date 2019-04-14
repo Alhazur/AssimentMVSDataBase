@@ -68,7 +68,6 @@ namespace AssimentMVSDataBase.Models.Mock
             bool wasRemoved = false;
 
             Course course = _schoolDbContext.Courses.SingleOrDefault(courses => courses.CourseId == id);//Najti i ydalit
-
             if (course == null)
             {
                 return wasRemoved;

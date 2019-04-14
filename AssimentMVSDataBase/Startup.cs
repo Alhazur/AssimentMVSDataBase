@@ -30,7 +30,7 @@ namespace AssimentMVSDataBase
         {
             services.AddDbContext<SchoolDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //All class and interfaceses
+            //All Service and interfaceses
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ICourseService, CourseService>();
