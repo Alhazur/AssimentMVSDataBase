@@ -51,7 +51,7 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             return _schoolDbContext.Students
                 .Include(f => f.StudentsCourses)
-                .SingleOrDefault(f => f.Id == id);///////////////////////
+                .SingleOrDefault(f => f.Id == id);
         }
 
         public bool UpdateStudent(Student student)
@@ -65,10 +65,10 @@ namespace AssimentMVSDataBase.Models.Mock
                     stud.Phone = student.Phone;
                     stud.Location = student.Location;
 
-                    if (student.StudentsCourses != null)
-                    {
-                        stud.StudentsCourses = student.StudentsCourses;////////////////////////////////////////////
-                    }
+                    //if (student.StudentsCourses != null)
+                    //{
+                    //    stud.StudentsCourses = student.StudentsCourses;//???
+                    //}
 
                     _schoolDbContext.SaveChanges();
                     wasUpdate = true;

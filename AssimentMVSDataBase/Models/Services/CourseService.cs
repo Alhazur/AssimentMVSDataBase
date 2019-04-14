@@ -107,7 +107,7 @@ namespace AssimentMVSDataBase.Models.Mock
                     oldCourse.Teacher = course.Teacher;//den kopplar teacher till course
                 }
 
-                if (course.StudentsCourses != null)// glöm inte att lägga till
+                if (course.StudentsCourses != null)
                 {
                     oldCourse.StudentsCourses = course.StudentsCourses;
                 }

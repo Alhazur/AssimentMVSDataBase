@@ -37,6 +37,11 @@ namespace AssimentMVSDataBase.Controllers
             return View();
         }
 
+        public IActionResult CreateAssignment()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateCourse([Bind("Title, Description")] Course course)
@@ -49,7 +54,9 @@ namespace AssimentMVSDataBase.Controllers
             return View(course);
         }
 
-        public IActionResult CreateAssignment([Bind("Title, Description")] Assignment assignment)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAssignment(Assignment assignment)
         {
             if (ModelState.IsValid)
             {
@@ -72,14 +79,15 @@ namespace AssimentMVSDataBase.Controllers
                 return NotFound();
             }
             //CourseVM will be used her in the controller
-            CourseVM CourseViewModel = new CourseVM
+            CourseVM Nazvanie = new CourseVM
             {
                 CourseId = course.CourseId,
                 Title = course.Title,
                 Description = course.Description,
-                Teachers = _teacherService.AllTeacher()
+                Teachers = _teacherService.AllTeacher(),
+                Assignments = _assignmentService.AllAssignment()//001
             };
-            return View(CourseViewModel);
+            return View(Nazvanie);
         }
 
         [HttpPost]
@@ -88,12 +96,15 @@ namespace AssimentMVSDataBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                var teacher = _teacherService.FindTeacher(course.TeacherId);//använda hitta teacher
+                var teacherF = _teacherService.FindTeacher(course.TeacherId);//använda hitta teacher
+                var assignmentA = _assignmentService.FindAssignment(course.AssiId);//001
+
                 var courseToUpdate = new Course
                 {
                     Title = course.Title,
                     Description = course.Description,
-                    Teacher = teacher,
+                    Teacher = teacherF,
+                    //Assignments = assignmentA,//001
                     CourseId = course.CourseId
                 };
                 _courseService.UpdateCourse(courseToUpdate);
@@ -141,7 +152,7 @@ namespace AssimentMVSDataBase.Controllers
             }
 
             CourseViewModel.Students = studentsNotInCourse;// lägg till vm.alla studenter eller vad som helst
-
+            //++
             return View(CourseViewModel);
         }
 

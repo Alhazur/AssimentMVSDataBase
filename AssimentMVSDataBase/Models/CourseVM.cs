@@ -17,11 +17,13 @@ namespace AssimentMVSDataBase.Models
 
         public int TeacherId { get; set; }
 
+        public int AssiId { get; set; }
+
         public List<Teacher> Teachers { get; set; }
 
-        //public List<StudentsCourses> StudentsCourses { get; set; }
+        public List<Assignment> Assignments { get; set; }
 
-        //public List<Assignment> Assignments { get; set; }
+        //public List<StudentsCourses> StudentsCourses { get; set; }
 
 
     }

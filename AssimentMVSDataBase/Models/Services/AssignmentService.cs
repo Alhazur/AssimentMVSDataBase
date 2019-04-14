@@ -24,10 +24,15 @@ namespace AssimentMVSDataBase.Models.Interface
 
         public Assignment CreateAssignment(string title, string description)
         {
-            Assignment assignment = new Assignment() { Title = title, Description = description };
+            Assignment assignment = new Assignment()
+            {
+                Title = title,
+                Description = description
+            };
+
             _schoolDbContext.Assignments.Add(assignment);
             _schoolDbContext.SaveChanges();
-            return assignment;            
+            return assignment;
         }
 
         public bool DeleteAssignment(int id)
@@ -68,6 +73,6 @@ namespace AssimentMVSDataBase.Models.Interface
 
             return wasUpdate;
         }
-            
+
     }
 }
