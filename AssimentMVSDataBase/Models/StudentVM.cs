@@ -7,28 +7,20 @@ using System.Threading.Tasks;
 
 namespace AssimentMVSDataBase.Models
 {
-    public class CourseVM
+    public class StudentVM
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string Title { get; set; }
-
         public string Name { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Phone { get; set; }
+        [Required]
+        public string Location { get; set; }
 
-        public int TeacherId { get; set; }
-
-        public int AssiId { get; set; }
-
-        public List<Teacher> Teachers { get; set; }
+        public List<StudentsCourses> StudentsCourses { get; set; }
 
         public List<Course> Courses { get; set; }
 
         public List<Assignment> Assignments { get; set; }
-
-        //public List<StudentsCourses> StudentsCourses { get; set; }
-
-
     }
 }

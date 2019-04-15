@@ -33,7 +33,8 @@ namespace AssimentMVSDataBase.Database
 
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Assignments)
-                .WithOne();
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Teacher>()
                 .HasMany(t => t.Courses)

@@ -22,16 +22,16 @@ namespace AssimentMVSDataBase.Models.Interface
             return _schoolDbContext.Assignments.ToList();
         }
 
-        public Assignment CreateAssignment(string title, string description)
+        public Assignment CreateAssignment(Assignment assignment, int courseId)//
         {
-            Assignment assignment = new Assignment()
-            {
-                Title = title,
-                Description = description
-            };
+            var name = _schoolDbContext.Courses//DB
+                .Include(c => c.Assignments)//from class course (Assignments)
+                .SingleOrDefault(courses => courses.CourseId == courseId);
 
-            _schoolDbContext.Assignments.Add(assignment);
+            name.Assignments.Add(assignment);
+
             _schoolDbContext.SaveChanges();
+
             return assignment;
         }
 

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace AssimentMVSDataBase.Models.Mock
 {
     public class TeacherService : ITeacherService
@@ -20,7 +19,9 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Teacher> AllTeacher()
         {
-            return _schoolDbContext.Teachers.Include(c => c.Courses).ToList();
+            return _schoolDbContext.Teachers
+                .Include(c => c.Courses)
+                .ToList();
         }
 
         public Teacher CreateTeacher(string name, string description)
@@ -59,7 +60,9 @@ namespace AssimentMVSDataBase.Models.Mock
         public bool UpdateTeacher(Teacher teacher)
         {
             bool wasUpdate = false;
-            Teacher stud = _schoolDbContext.Teachers.Include(c => c.Courses).SingleOrDefault(teachers => teachers.Id == teacher.Id);
+            Teacher stud = _schoolDbContext.Teachers
+                .Include(c => c.Courses)
+                .SingleOrDefault(teachers => teachers.Id == teacher.Id);
             {
                 if (stud != null)
                 {

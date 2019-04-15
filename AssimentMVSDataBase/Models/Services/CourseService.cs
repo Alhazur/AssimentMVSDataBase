@@ -50,24 +50,11 @@ namespace AssimentMVSDataBase.Models.Mock
             return course;
         }
 
-        //public Assignment CreateAssignment(string title, string description)
-        //{
-        //    Assignment assignment = new Assignment()
-        //    {
-        //        Title = title,
-        //        Description = title
-        //    };
-
-        //    _schoolDbContext.Courses.Add(assignment);
-        //    _schoolDbContext.SaveChanges();
-        //    return assignment;
-        //}//prov
-
         public bool DeleteCourse(int id)
         {
             bool wasRemoved = false;
 
-            Course course = _schoolDbContext.Courses.SingleOrDefault(courses => courses.CourseId == id);//Najti i ydalit
+            Course course = _schoolDbContext.Courses.Include(s => s.Assignments).SingleOrDefault(courses => courses.CourseId == id);//Najti i ydalit
             if (course == null)
             {
                 return wasRemoved;

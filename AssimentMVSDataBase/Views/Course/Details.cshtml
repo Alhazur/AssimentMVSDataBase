@@ -31,7 +31,7 @@
     </dl>
 
     <hr />
-    <a class="btn btn-primary" asp-controller="Course" asp-action="CreateAssignment">Create new Assignment</a>
+    <a class="btn btn-primary" asp-controller="Course" asp-action="CreateAssignment" asp-route-courseId="@Model.Course.CourseId">Create new Assignment</a>
 
     <table class="table table-striped table-dark">
         <thead>

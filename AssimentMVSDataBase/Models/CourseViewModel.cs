@@ -17,5 +17,8 @@ namespace AssimentMVSDataBase.Models
         public List<Assignment> Assignments = new List<Assignment>();
 
         public Course Course { get; set; }
+
+        public Course Teacher { get; set; }
+
     }
 }

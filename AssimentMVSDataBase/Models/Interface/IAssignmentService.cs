@@ -8,7 +8,7 @@ namespace AssimentMVSDataBase.Models.Interface
 {
     public interface IAssignmentService
     {
-        Assignment CreateAssignment(string name, string Description);
+        Assignment CreateAssignment(Assignment assignment, int courseId);
 
         List<Assignment> AllAssignment();
 

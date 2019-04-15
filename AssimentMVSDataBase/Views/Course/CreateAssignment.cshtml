@@ -1,4 +1,4 @@
-﻿@model Course
+﻿@model AssignmentVM
 @{
     ViewData["Title"] = "CreateAssignment";
 }
@@ -27,6 +27,7 @@
                     <a class="btn btn-danger" asp-action="Details">Back to List</a>
                 </div>
             </div>
+            <input asp-for="CourseId" type="hidden" />
         </form>
     </div>
 </div>

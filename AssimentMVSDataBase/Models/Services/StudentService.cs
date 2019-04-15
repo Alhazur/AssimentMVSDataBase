@@ -19,7 +19,9 @@ namespace AssimentMVSDataBase.Models.Mock
 
         public List<Student> AllStudents()
         {
-            return _schoolDbContext.Students.Include(c => c.StudentsCourses).ToList();
+            return _schoolDbContext.Students
+                .Include(c => c.StudentsCourses)
+                .ToList();
         }
 
         public Student CreateStudent(string name, string phone, string location)
@@ -51,6 +53,8 @@ namespace AssimentMVSDataBase.Models.Mock
         {
             return _schoolDbContext.Students
                 .Include(f => f.StudentsCourses)
+                .Include("StudentsCourses.Course")
+                .Include("StudentsCourses.Course.Assignments")
                 .SingleOrDefault(f => f.Id == id);
         }
 

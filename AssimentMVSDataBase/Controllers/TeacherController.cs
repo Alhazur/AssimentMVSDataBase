@@ -88,6 +88,7 @@ namespace AssimentMVSDataBase.Controllers
             {
                 return NotFound();
             }
+
             return View(teacher);
         }
     }
